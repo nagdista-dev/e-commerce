@@ -1,13 +1,25 @@
 import React, { Fragment } from "react";
 import { Link, useParams } from "react-router-dom";
-import products from "../assets/products";
 import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
 import Rating from "../components/Rating";
-// !Product Page
+import { useEffect } from "react";
+import { useState } from "react";
+import axiosInstance from "../lib/axios";
+// !START BUILDING PRODUCT PAGE
 export default function Product() {
+  // *VARIABLES
   const { id: productId } = useParams();
-  const product = products.find((p) => p._id === productId);
-  console.log(product);
+  // *STATES
+  const [product, setProduct] = useState({});
+  // *HANDLERS
+  const fetchProduct = async () => {
+    const { data } = await axiosInstance(`/api/products/${productId}`);
+    setProduct(data);
+  };
+  // *USE EFFECT
+  useEffect(() => {
+    fetchProduct();
+  }, [productId]);
   return (
     <Fragment>
       <Link to={"/"} className="btn btn-light my-3">
