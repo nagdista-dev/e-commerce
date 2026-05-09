@@ -4,33 +4,30 @@ import axios from "axios";
 import Product from "../components/Product";
 import { useState } from "react";
 import { useEffect } from "react";
-import axiosInstance from "../lib/axios";
+import { useGetProductsQuery } from "../slices/productsApiSlice";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 // !START BUILDING
 export default function Home() {
-  // !STATE
-  const [products, setProducts] = useState([]);
+  const { data: products, error, isLoading } = useGetProductsQuery();
   // !HANDLERS
-  const fetchProducts = async () => {
-    try {
-      const { data } = await axiosInstance("/api/products");
-      setProducts(data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-  // !USE EFFECT
-  useEffect(() => {
-    fetchProducts();
-  }, []);
   return (
     <Fragment>
-      <Row>
-        {products?.map((product) => (
-          <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-            <Product  product={product} />
-          </Col>
-        ))}
-      </Row>
+      {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">
+          {error?.data?.message || error.error}
+        </Message>
+      ) : (
+        <Row>
+          {products?.map((product) => (
+            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+              <Product product={product} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </Fragment>
   );
 }
