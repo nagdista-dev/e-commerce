@@ -1,9 +1,11 @@
 import express from "express";
-import products from "./data/products.js";
 import "dotenv/config";
 import cors from "cors";
+import connectDB from "./config/db.js";
+import productRouter from "./routes/product.routes.js";
+import { errorHandler, notFound } from "./middleware/error.middleware.js";
 // !CONNECT DATABASE
-
+await connectDB();
 // !VARIABLES
 const app = express();
 const port = process.env.PORT || 3001;
@@ -15,16 +17,12 @@ app.use(cors({ origin: ["http://localhost:5173"] }));
 app.get("/", (_, res) => {
   res.json({ message: "E-COMMERCE API IS RUNNING" });
 });
-// *PRODUCTS
-app.get("/api/products", (req, res) => {
-  res.json(products);
-});
-// *SINGLE PRODUCT
-app.get("/api/products/:id", (req, res) => {
-  const { id } = req.params;
-  const product = products.find((p) => p._id === id);
-  res.json(product);
-});
+// *PRODUCT ROUTER
+app.use("/api/products", productRouter);
+
+// !ME MIDDLEWARES
+app.use(notFound);
+app.use(errorHandler);
 // !LISTEN
 app.listen(port, () => {
   console.log(`SERVER IS RUNNING ON PORT: ${port}`);
