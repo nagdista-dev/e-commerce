@@ -1,7 +1,26 @@
-import asyncHandler from "../middleware/asyncHandler";
+import asyncHandler from "../middleware/asyncHandler.js";
+import User from "../model/User.js";
+import jwt from "jsonwebtoken";
 // !LOGIN
 export const loginUser = asyncHandler(async (req, res, next) => {
-  res.send("Auth User");
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+  if (user && (await user.matchPassword(password))) {
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "30d",
+    });
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: "strict",
+      maxAge: 24 * 60 * 60 * 1000 * 30,
+    });
+    res.json({ _id: user._id, email: user.email, isAdmin: user.isAdmin });
+  } else {
+    res.status(401);
+    throw new Error("Invalid Email Or Password");
+  }
 });
 // !REGISTER
 export const registerUser = asyncHandler(async (req, res, next) => {
@@ -9,7 +28,8 @@ export const registerUser = asyncHandler(async (req, res, next) => {
 });
 // !LOGOUT
 export const logoutUser = asyncHandler(async (req, res, next) => {
-  res.send("logout User");
+  res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
+  res.status(200).json({ message: "Logged out successfully" });
 });
 // !GET USER BY ID
 export const getUserById = asyncHandler(async (req, res, next) => {

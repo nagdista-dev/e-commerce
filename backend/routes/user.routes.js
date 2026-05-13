@@ -10,20 +10,21 @@ import {
   updateUserByAdmin,
   updateUserProfile,
 } from "../controller/user.controller.js";
+import { admin, protect } from "../middleware/auth.middleware.js";
 
 const userRouter = express.Router();
 
 // !GET
-userRouter.get("/", getUsers);
-userRouter.get("/profile", getUserProfile);
-userRouter.get("/:id", getUserById);
+userRouter.get("/", protect, admin, getUsers); //
+userRouter.get("/profile", protect, getUserProfile); //
+userRouter.get("/:id", getUserById); //
 // !POST
 userRouter.post("/", registerUser);
 userRouter.post("/login", loginUser);
 userRouter.post("/logout", logoutUser);
 // !PUT
 userRouter.put("/profile", updateUserProfile);
-userRouter.put("/:id", updateUserByAdmin);
+userRouter.put("/:id", protect, admin, updateUserByAdmin);
 // !DELETE
-userRouter.delete("/:id", deleteUser);
+userRouter.delete("/:id", protect, admin, deleteUser);
 export default userRouter;
