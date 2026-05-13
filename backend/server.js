@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import productRouter from "./routes/product.routes.js";
 import { errorHandler, notFound } from "./middleware/error.middleware.js";
+import userRouter from "./routes/user.routes.js";
 // !CONNECT DATABASE
 await connectDB();
 // !VARIABLES
@@ -19,7 +20,8 @@ app.get("/", (_, res) => {
 });
 // *PRODUCT ROUTER
 app.use("/api/products", productRouter);
-
+// *USERS
+app.use("/users", userRouter);
 // !ME MIDDLEWARES
 app.use(notFound);
 app.use(errorHandler);
