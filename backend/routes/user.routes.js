@@ -23,7 +23,7 @@ userRouter.post("/", registerUser);
 userRouter.post("/login", loginUser);
 userRouter.post("/logout", logoutUser);
 // !PUT
-userRouter.put("/profile", updateUserProfile);
+userRouter.put("/profile", protect, updateUserProfile);
 userRouter.put("/:id", protect, admin, updateUserByAdmin);
 // !DELETE
 userRouter.delete("/:id", protect, admin, deleteUser);
