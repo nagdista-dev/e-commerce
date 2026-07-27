@@ -1,33 +1,43 @@
 # E-Commerce Platform
 
-A full-stack e-commerce application with product management, user authentication, and a shopping cart — built with React and Node.js.
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React" />
+  <img src="https://img.shields.io/badge/Redux-Toolkit-764ABC?style=for-the-badge&logo=redux&logoColor=white" alt="Redux" />
+  <img src="https://img.shields.io/badge/Express-5-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
+  <img src="https://img.shields.io/badge/MongoDB-4A9A57?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/Node.js-18-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
+</p>
 
-## Tech Stack
+<p align="center">
+  <img src="https://img.shields.io/github/license/nagdista-dev/e-commerce?style=for-the-badge" alt="License" />
+  <img src="https://img.shields.io/github/issues/nagdista-dev/e-commerce?style=for-the-badge" alt="Issues" />
+  <img src="https://img.shields.io/github/stars/nagdista-dev/e-commerce?style=for-the-badge" alt="Stars" />
+</p>
 
-### Frontend
-- **React 19** with Vite
-- **Redux Toolkit** for state management
-- **React Bootstrap** for UI components
-- **Axios** for API requests
-
-### Backend
-- **Node.js** with **Express**
-- **MongoDB** with **Mongoose**
-- **JWT** for authentication
-- **Cookie-based** session management
+A full-stack e-commerce application with product management, user authentication, and a shopping cart.
 
 ## Features
 
 - Product listing with search and filtering
-- User registration and login
+- User registration and login with JWT
 - Shopping cart with persistent state
 - Product reviews and ratings
 - Admin product management
 - Responsive design
 
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Frontend | React 19, Redux Toolkit, React Bootstrap, Axios |
+| Backend | Node.js, Express 5 |
+| Database | MongoDB with Mongoose |
+| Auth | JWT, Cookie-based sessions |
+
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js v18+
 - MongoDB instance
 
@@ -90,10 +100,17 @@ e-commerce/
 │   ├── routes/         # API routes
 │   └── server.js       # Entry point
 ├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   └── slices/     # Redux slices
-│   └── package.json
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       └── slices/     # Redux slices
 └── package.json
 ```
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
